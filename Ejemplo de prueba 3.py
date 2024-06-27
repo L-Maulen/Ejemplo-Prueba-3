@@ -7,8 +7,12 @@ def L_sector(p):
         Lc.append(p)
     elif p[2] == "colina":
         Lco.append(p)
-    else:
+    elif p[2] == "industrias":
         Li.append(p)
+    else:
+        print("Sector no disponible para entregas.")
+        print("Sectores disponibles para entregas: Centro, Colina e Industrias")
+        print()
 
 def Orden():
     cont_5k = 0
@@ -46,8 +50,8 @@ def Orden():
         else:
             print("Ingrese una opcion valida.")
 
-        pedido = [Nombre_y_apellido,Direccion,Comuna.lower(),cont_5k,cont_15k,cont_45k]
-        L_sector(pedido)
+    pedido = [Nombre_y_apellido,Direccion,Comuna.lower(),cont_5k,cont_15k,cont_45k]
+    L_sector(pedido)
 
 def texto(hoja):
     if hoja.lower() == "centro":
@@ -70,7 +74,7 @@ def texto(hoja):
             arch.close()
             print("Se ha creado el archivo con los datos de entrega. \n")
 
-    elif hoja.lower() == "industria":
+    elif hoja.lower() == "industrias":
         if Li == []:
             print("No hay entregas a realizar en el sector 'Industrias'.")
         else:
@@ -80,12 +84,32 @@ def texto(hoja):
             arch.close()
             print("Se ha creado el archivo con los datos de entrega. \n")
 
+def listar_pedidos():
+        if Lc == [] and Lco == [] and Li == []:
+            print("En este momento no se ha realizado ningun pedido a ningun sector.")
+        else:
+            if Lc != []:
+                print("Pedidos realizados al sector 'Centro'")
+                for p in Lc:
+                    print(p)
+
+            if Lco != []:
+                print("Pedidos realizados al sector 'Colina'")
+                for c in Lco:
+                    print(c)
+
+            if Li != []:
+                print("Pedidos realizados al sector 'Industrias'")
+                for i in Li:
+                    print(i)
+
 
 
 # *** MAIN ***
 
 while True:
-    print("Menu")
+    print()
+    print("  ***  Menu Principal ***  ")
     print("1. Registrar pedido")
     print("2. Listar todos los pedidos")
     print("3. Imprimir hoja de ruta")
@@ -97,12 +121,7 @@ while True:
         Orden()
 
     elif op == "2":
-        if Lc == [] and Lco == [] and Li == []:
-            print("En este momento no se ha realizado ningun pedido a ningun sector.")
-        else:
-            print(Lc)
-            print(Lco)
-            print(Li)
+        listar_pedidos()
 
     elif op == "3":
         Pedir_hoja = input("Que hoja de ruta desea convertir a archivo? (Centro, Colina o Industria) \n: ")
